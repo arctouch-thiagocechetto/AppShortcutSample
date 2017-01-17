@@ -1,5 +1,6 @@
 package com.arctouch.appshortcutsample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -89,13 +90,23 @@ public class MainActivity extends AppCompatActivity
     } else if (id == R.id.nav_manage) {
 
     } else if (id == R.id.nav_share) {
-
+      startShareActivity();
     } else if (id == R.id.nav_send) {
-
+      startSendActivity();
     }
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
+  }
+
+  private void startShareActivity() {
+    Intent intent = new Intent(this, ShareActivity.class);
+    startActivity(intent);
+  }
+
+  private void startSendActivity() {
+    Intent intent = new Intent(this, SendActivity.class);
+    startActivity(intent);
   }
 }
