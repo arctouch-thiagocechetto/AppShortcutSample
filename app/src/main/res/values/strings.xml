@@ -7,4 +7,6 @@
   <string name="action_settings">Settings</string>
 
   <string name="action_share">Share</string>
+
+  <string name="email_snack_text">Replace with your own action</string>
 </resources>
