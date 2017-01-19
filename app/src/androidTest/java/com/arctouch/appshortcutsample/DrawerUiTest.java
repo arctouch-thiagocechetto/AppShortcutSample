@@ -8,8 +8,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.assertion.PositionAssertions.isBelow;
+import static android.support.test.espresso.intent.Intents.intended;
 
 import android.support.test.espresso.contrib.DrawerActions;
+import android.support.test.espresso.intent.matcher.IntentMatchers;
+import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -28,7 +31,7 @@ import org.junit.runner.RunWith;
 public class DrawerUiTest {
 
   @Rule
-  public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule(MainActivity.class);
+  public IntentsTestRule<MainActivity> intentsTestRule = new IntentsTestRule(MainActivity.class);
 
   @Test
   public void checkDrawerElements() {
@@ -63,14 +66,23 @@ public class DrawerUiTest {
     onView(withText("android.studio@android.com")).check(matches(isCompletelyDisplayed()));
     onView(withText("android.studio@android.com")).check(isBelow(withText("Android Studio")));
 
-    // TODO try to compare header background
+    // TODO How to compare header background?
   }
 
   @Test
   public void shareAction() {
     onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
     onView(withText("Share")).perform(click());
-    // TODO use espresso-intents finishing this test.
+
+    intended(IntentMatchers.hasComponent(ShareActivity.class.getName()));
+  }
+
+  @Test
+  public void sendAction() {
+    onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+    onView(withText("Send")).perform(click());
+
+    intended(IntentMatchers.hasComponent(SendActivity.class.getName()));
   }
 
 }
